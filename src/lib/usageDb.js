@@ -44,7 +44,8 @@ class UsageDb {
   createDefault() {
     return {
       providers: {},
-      monthly: {}
+      monthly: {},
+      pricing: {}
     };
   }
 

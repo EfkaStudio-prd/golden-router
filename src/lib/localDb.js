@@ -131,8 +131,10 @@ class LocalDb {
     return this.data.combos[this.data.combos.length - 1];
   }
 
-  getCombo(name) {
-    return this.data.combos.find(c => c.name === name);
+  getCombo(identifier) {
+    // Try to find by ID first, then by name
+    return this.data.combos.find(c => c.id === identifier) || 
+           this.data.combos.find(c => c.name === identifier);
   }
 
   getComboById(id) {

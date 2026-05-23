@@ -101,6 +101,9 @@ class QuotaTracker {
    * Set pricing for a provider
    */
   setPricing(provider, pricing) {
+    if (!this.usageDb.data.pricing) {
+      this.usageDb.data.pricing = {};
+    }
     this.usageDb.data.pricing[provider] = {
       input: pricing.input || 0,
       output: pricing.output || 0,

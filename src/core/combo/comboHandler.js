@@ -148,6 +148,11 @@ class ComboHandler {
   getComboById(id) {
     return this.localDb.getComboById(id);
   }
+
+  // Get combo by ID or name
+  getCombo(identifier) {
+    return this.localDb.getCombo(identifier);
+  }
 }
 
 module.exports = ComboHandler;
