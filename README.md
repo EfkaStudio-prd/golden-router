@@ -38,7 +38,7 @@ Golden Router v2.0 adalah AI routing gateway yang menyatukan 160+ LLM provider, 
 
 ```bash
 # Clone repository
-git clone https://github.com/your-org/golden-router.git
+git clone https://github.com/EfkaStudio-prd/golden-router.git
 cd golden-router
 
 # Install dependencies
