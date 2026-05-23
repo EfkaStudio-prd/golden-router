@@ -72,4 +72,41 @@ router.get('/monthly/all', (req, res) => {
   }
 });
 
+// GET /api/quota/pricing - Get all pricing
+router.get('/pricing', (req, res) => {
+  try {
+    const pricing = quotaTracker.getAllPricing();
+    res.json({ success: true, data: pricing });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// POST /api/quota/pricing/:provider - Set pricing for provider
+router.post('/pricing/:provider', (req, res) => {
+  try {
+    const { provider } = req.params;
+    const { input, output, currency } = req.body;
+
+    quotaTracker.setPricing(provider, { input, output, currency });
+    
+    res.json({ success: true, message: 'Pricing updated' });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
+// POST /api/quota/estimate - Estimate cost for request
+router.post('/estimate', (req, res) => {
+  try {
+    const { provider, inputTokens, outputTokens } = req.body;
+
+    const cost = quotaTracker.estimateCost(provider, inputTokens, outputTokens);
+    
+    res.json({ success: true, data: { cost, provider } });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+});
+
 module.exports = router;

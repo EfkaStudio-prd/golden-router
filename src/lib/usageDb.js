@@ -165,7 +165,9 @@ class UsageDb {
       cost: metadata.cost || 0,
       duration: metadata.duration || 0,
       status: metadata.status || 'success',
-      error: metadata.error || null
+      error: metadata.error || null,
+      level: metadata.level || 'info',
+      requestId: metadata.requestId || this.generateRequestId()
     };
 
     try {
@@ -173,6 +175,44 @@ class UsageDb {
     } catch (error) {
       console.error('Error writing to log file:', error);
     }
+  }
+
+  generateRequestId() {
+    return 'req-' + Date.now() + '-' + Math.random().toString(36).substring(2, 9);
+  }
+
+  /**
+   * Log with specific level
+   */
+  logWithLevel(level, request, response, metadata) {
+    return this.logRequest(request, response, {
+      ...metadata,
+      level
+    });
+  }
+
+  /**
+   * Get logs filtered by level
+   */
+  getLogsByLevel(level, limit = 100) {
+    const allLogs = this.getLogs();
+    return allLogs.filter(log => log.level === level).slice(-limit);
+  }
+
+  /**
+   * Get logs filtered by provider
+   */
+  getLogsByProvider(provider, limit = 100) {
+    const allLogs = this.getLogs();
+    return allLogs.filter(log => log.provider === provider).slice(-limit);
+  }
+
+  /**
+   * Get logs filtered by status
+   */
+  getLogsByStatus(status, limit = 100) {
+    const allLogs = this.getLogs();
+    return allLogs.filter(log => log.status === status).slice(-limit);
   }
 
   getLogs(limit = 100) {

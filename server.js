@@ -7,6 +7,9 @@ const combosRouter = require('./src/api/combos');
 const accountsRouter = require('./src/api/accounts');
 const quotaRouter = require('./src/api/quota');
 const logsRouter = require('./src/api/logs');
+const oauthRouter = require('./src/api/oauth');
+const syncRouter = require('./src/api/sync');
+const v1Router = require('./src/api/v1');
 
 const app = express();
 const PORT = process.env.PORT || 20129;
@@ -37,14 +40,11 @@ app.use('/api/combos', combosRouter);
 app.use('/api/accounts', accountsRouter);
 app.use('/api/quota', quotaRouter);
 app.use('/api/logs', logsRouter);
+app.use('/api/oauth', oauthRouter);
+app.use('/api/sync', syncRouter);
 
-// Placeholder for v1 compatibility API (to be integrated with OmniRoute)
-app.use('/v1', (req, res) => {
-  res.json({ 
-    message: 'OpenAI-compatible API endpoint - to be integrated with OmniRoute',
-    note: 'This is a placeholder. Full OmniRoute integration coming in Sprint 2-4'
-  });
-});
+// v1 Compatibility API (OpenAI/Anthropic/Gemini compatible)
+app.use('/v1', v1Router);
 
 // 404 handler
 app.use((req, res) => {

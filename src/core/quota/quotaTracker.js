@@ -76,6 +76,38 @@ class QuotaTracker {
   updatePricing(provider, pricing) {
     this.usageDb.data.pricing[provider] = pricing;
   }
+
+  /**
+   * Get cost estimation for a request
+   */
+  estimateCost(provider, inputTokens, outputTokens) {
+    const pricing = this.usageDb.data.pricing[provider] || {
+      input: 0,
+      output: 0,
+      currency: 'USD'
+    };
+
+    return this.calculateCost(pricing, inputTokens, outputTokens);
+  }
+
+  /**
+   * Get pricing for all providers
+   */
+  getAllPricing() {
+    return this.usageDb.data.pricing;
+  }
+
+  /**
+   * Set pricing for a provider
+   */
+  setPricing(provider, pricing) {
+    this.usageDb.data.pricing[provider] = {
+      input: pricing.input || 0,
+      output: pricing.output || 0,
+      currency: pricing.currency || 'USD'
+    };
+    this.usageDb.save();
+  }
 }
 
 module.exports = QuotaTracker;
