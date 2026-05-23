@@ -4,174 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Golden Router v2.0 - Dashboard</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-        }
-        
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-        
-        .header {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .header h1 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-        
-        .header p {
-            color: #666;
-        }
-        
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-        }
-        
-        .card h2 {
-            color: #333;
-            margin-bottom: 20px;
-            font-size: 1.2em;
-        }
-        
-        .form-group {
-            margin-bottom: 15px;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            color: #555;
-            font-weight: 500;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            font-size: 14px;
-        }
-        
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        
-        .btn {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 14px;
-            font-weight: 500;
-            transition: transform 0.2s;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-        }
-        
-        .btn:active {
-            transform: translateY(0);
-        }
-        
-        .btn-secondary {
-            background: #6c757d;
-        }
-        
-        .status {
-            padding: 10px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        
-        .status.success {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .status.error {
-            background: #f8d7da;
-            color: #721c24;
-        }
-        
-        .status.info {
-            background: #d1ecf1;
-            color: #0c5460;
-        }
-        
-        .list-item {
-            background: #f8f9fa;
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 10px;
-        }
-        
-        .list-item h3 {
-            color: #333;
-            margin-bottom: 5px;
-            font-size: 14px;
-        }
-        
-        .list-item p {
-            color: #666;
-            font-size: 12px;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 4px 8px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-        }
-        
-        .badge.success {
-            background: #d4edda;
-            color: #155724;
-        }
-        
-        .badge.warning {
-            background: #fff3cd;
-            color: #856404;
-        }
-        
-        .badge.error {
-            background: #f8d7da;
-            color: #721c24;
-        }
-    </style>
+    <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
     <div class="container">
@@ -206,8 +39,8 @@
                     <input type="text" id="comboName" placeholder="my-coding-stack">
                 </div>
                 <div class="form-group">
-                    <label>Provider 1</label>
-                    <select id="provider1">
+                    <label for="provider1">Provider 1</label>
+                    <select id="provider1" title="Select primary provider">
                         <option value="openai">OpenAI</option>
                         <option value="anthropic">Anthropic</option>
                         <option value="gemini">Gemini</option>
@@ -220,8 +53,8 @@
                     <input type="text" id="model1" placeholder="gpt-4">
                 </div>
                 <div class="form-group">
-                    <label>Provider 2 (Fallback)</label>
-                    <select id="provider2">
+                    <label for="provider2">Provider 2 (Fallback)</label>
+                    <select id="provider2" title="Select fallback provider">
                         <option value="anthropic">Anthropic</option>
                         <option value="openai">OpenAI</option>
                         <option value="gemini">Gemini</option>
@@ -240,8 +73,8 @@
             <div class="card">
                 <h2>Create Account</h2>
                 <div class="form-group">
-                    <label>Provider</label>
-                    <select id="accountProvider">
+                    <label for="accountProvider">Provider</label>
+                    <select id="accountProvider" title="Select account provider">
                         <option value="openai">OpenAI</option>
                         <option value="anthropic">Anthropic</option>
                         <option value="gemini">Gemini</option>
@@ -254,12 +87,12 @@
                     <input type="password" id="apiKey" placeholder="sk-...">
                 </div>
                 <div class="form-group">
-                    <label>Priority</label>
-                    <input type="number" id="priority" value="1" min="1">
+                    <label for="priority">Priority</label>
+                    <input type="number" id="priority" value="1" min="1" title="Account priority (lower = higher priority)" placeholder="1">
                 </div>
                 <div class="form-group">
-                    <label>Max Tokens</label>
-                    <input type="number" id="maxTokens" value="1000000">
+                    <label for="maxTokens">Max Tokens</label>
+                    <input type="number" id="maxTokens" value="1000000" title="Maximum token limit" placeholder="1000000">
                 </div>
                 <button class="btn" onclick="createAccount()">Create Account</button>
             </div>
@@ -270,7 +103,7 @@
             <div class="card">
                 <h2>Combos</h2>
                 <div id="combosList">
-                    <p style="color: #666;">Click "Load Combos" to view</p>
+                    <p class="placeholder-text">Click "Load Combos" to view</p>
                 </div>
             </div>
             
@@ -278,7 +111,7 @@
             <div class="card">
                 <h2>Accounts</h2>
                 <div id="accountsList">
-                    <p style="color: #666;">Click "Load Accounts" to view</p>
+                    <p class="placeholder-text">Click "Load Accounts" to view</p>
                 </div>
             </div>
             
@@ -286,7 +119,7 @@
             <div class="card">
                 <h2>Quota Status</h2>
                 <div id="quotaList">
-                    <p style="color: #666;">Click "Load Quota" to view</p>
+                    <p class="placeholder-text">Click "Load Quota" to view</p>
                 </div>
             </div>
         </div>
