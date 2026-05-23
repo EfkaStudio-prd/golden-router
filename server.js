@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 
 // Import API routes
 const combosRouter = require('./src/api/combos');
@@ -10,6 +11,7 @@ const logsRouter = require('./src/api/logs');
 const oauthRouter = require('./src/api/oauth');
 const syncRouter = require('./src/api/sync');
 const v1Router = require('./src/api/v1');
+const settingsRouter = require('./src/api/settings');
 
 const app = express();
 const PORT = process.env.PORT || 20129;
@@ -22,6 +24,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static('public'));
+
+// Serve new dashboard as default
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'dashboard-new.html'));
+});
 
 // Request logging middleware
 app.use((req, res, next) => {
@@ -45,6 +52,7 @@ app.use('/api/quota', quotaRouter);
 app.use('/api/logs', logsRouter);
 app.use('/api/oauth', oauthRouter);
 app.use('/api/sync', syncRouter);
+app.use('/api/settings', settingsRouter);
 
 // v1 Compatibility API (OpenAI/Anthropic/Gemini compatible)
 app.use('/v1', v1Router);

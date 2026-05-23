@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Golden Router v2.0 - Dashboard</title>
+    <link rel="stylesheet" href="dashboard-new.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <span class="logo-icon">🥇</span>
+                    <span class="logo-text">Golden Router</span>
+                </div>
+                <div class="version">v2.0</div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" data-section="overview">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Overview</span>
+                </a>
+                <a href="#" class="nav-item" data-section="providers">
+                    <span class="nav-icon">🔌</span>
+                    <span class="nav-text">Providers</span>
+                </a>
+                <a href="#" class="nav-item" data-section="combos">
+                    <span class="nav-icon">🎯</span>
+                    <span class="nav-text">Combos</span>
+                </a>
+                <a href="#" class="nav-item" data-section="accounts">
+                    <span class="nav-icon">👤</span>
+                    <span class="nav-text">Accounts</span>
+                </a>
+                <a href="#" class="nav-item" data-section="quota">
+                    <span class="nav-icon">📈</span>
+                    <span class="nav-text">Quota</span>
+                </a>
+                <a href="#" class="nav-item" data-section="logs">
+                    <span class="nav-icon">📝</span>
+                    <span class="nav-text">Logs</span>
+                </a>
+                <a href="#" class="nav-item" data-section="translation">
+                    <span class="nav-icon">🔄</span>
+                    <span class="nav-text">Translation</span>
+                </a>
+                <a href="#" class="nav-item" data-section="oauth">
+                    <span class="nav-icon">🔑</span>
+                    <span class="nav-text">OAuth</span>
+                </a>
+                <a href="#" class="nav-item" data-section="sync">
+                    <span class="nav-icon">☁️</span>
+                    <span class="nav-text">Cloud Sync</span>
+                </a>
+                <a href="#" class="nav-item" data-section="settings">
+                    <span class="nav-icon">⚙️</span>
+                    <span class="nav-text">Settings</span>
+                </a>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="status-indicator">
+                    <span class="status-dot online"></span>
+                    <span class="status-text">Server Online</span>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h1 class="page-title">Overview</h1>
+                    <p class="page-subtitle">Real-time monitoring and management</p>
+                </div>
+                <div class="header-right">
+                    <button class="btn btn-primary" onclick="refreshData()">
+                        <span>🔄</span> Refresh
+                    </button>
+                    <button class="btn btn-secondary" onclick="openDashboard()">
+                        <span>🌐</span> Open Dashboard
+                    </button>
+                </div>
+            </header>
+            
+            <!-- Content Sections -->
+            <div class="content-sections">
+                <!-- Overview Section -->
+                <section id="overview" class="section active">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">🔌</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Providers</div>
+                                <div class="stat-value" id="stat-providers">6</div>
+                                <div class="stat-change">Active</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Combos</div>
+                                <div class="stat-value" id="stat-combos">0</div>
+                                <div class="stat-change">Configured</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">👤</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Accounts</div>
+                                <div class="stat-value" id="stat-accounts">0</div>
+                                <div class="stat-change">Connected</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">📈</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Total Requests</div>
+                                <div class="stat-value" id="stat-requests">0</div>
+                                <div class="stat-change">Today</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">💰</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Total Cost</div>
+                                <div class="stat-value" id="stat-cost">$0.00</div>
+                                <div class="stat-change">This Month</div>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⚡</div>
+                            <div class="stat-content">
+                                <div class="stat-label">Avg Response</div>
+                                <div class="stat-value" id="stat-latency">0ms</div>
+                                <div class="stat-change">Last Hour</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="dashboard-grid">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Recent Activity</h3>
+                                <button class="btn-icon" onclick="loadLogs()">📝</button>
+                            </div>
+                            <div class="card-body">
+                                <div id="recent-logs" class="activity-list">
+                                    <p class="placeholder-text">Loading recent activity...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Quota Status</h3>
+                                <button class="btn-icon" onclick="loadQuota()">📈</button>
+                            </div>
+                            <div class="card-body">
+                                <div id="quota-overview" class="quota-list">
+                                    <p class="placeholder-text">Loading quota status...</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>Quick Actions</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="quick-actions">
+                                    <button class="action-btn" onclick="showCreateCombo()">
+                                        <span class="action-icon">➕</span>
+                                        <span class="action-text">Create Combo</span>
+                                    </button>
+                                    <button class="action-btn" onclick="showCreateAccount()">
+                                        <span class="action-icon">➕</span>
+                                        <span class="action-text">Add Account</span>
+                                    </button>
+                                    <button class="action-btn" onclick="showTranslationTest()">
+                                        <span class="action-icon">🔄</span>
+                                        <span class="action-text">Test Translation</span>
+                                    </button>
+                                    <button class="action-btn" onclick="exportLogs()">
+                                        <span class="action-icon">📥</span>
+                                        <span class="action-text">Export Logs</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Providers Section -->
+                <section id="providers" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Available Providers</h3>
+                            <button class="btn btn-primary" onclick="showAddProvider()">Add Provider</button>
+                        </div>
+                        <div class="card-body">
+                            <div id="providers-list" class="providers-grid">
+                                <div class="provider-card">
+                                    <div class="provider-icon">🤖</div>
+                                    <div class="provider-name">OpenAI</div>
+                                    <div class="provider-status online">Online</div>
+                                </div>
+                                <div class="provider-card">
+                                    <div class="provider-icon">🧠</div>
+                                    <div class="provider-name">Anthropic</div>
+                                    <div class="provider-status online">Online</div>
+                                </div>
+                                <div class="provider-card">
+                                    <div class="provider-icon">💎</div>
+                                    <div class="provider-name">Gemini</div>
+                                    <div class="provider-status online">Online</div>
+                                </div>
+                                <div class="provider-card">
+                                    <div class="provider-icon">🔍</div>
+                                    <div class="provider-name">DeepSeek</div>
+                                    <div class="provider-status online">Online</div>
+                                </div>
+                                <div class="provider-card">
+                                    <div class="provider-icon">⚡</div>
+                                    <div class="provider-name">Groq</div>
+                                    <div class="provider-status online">Online</div>
+                                </div>
+                                <div class="provider-card">
+                                    <div class="provider-icon">🌐</div>
+                                    <div class="provider-name">OpenRouter</div>
+                                    <div class="provider-status online">Online</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Combos Section -->
+                <section id="combos" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Combos</h3>
+                            <button class="btn btn-primary" onclick="showCreateCombo()">Create Combo</button>
+                        </div>
+                        <div class="card-body">
+                            <div id="combos-list" class="combos-list">
+                                <p class="placeholder-text">No combos configured. Create your first combo to get started.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Accounts Section -->
+                <section id="accounts" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Accounts</h3>
+                            <button class="btn btn-primary" onclick="showCreateAccount()">Add Account</button>
+                        </div>
+                        <div class="card-body">
+                            <div id="accounts-list" class="accounts-list">
+                                <p class="placeholder-text">No accounts configured. Add your first API key to get started.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Quota Section -->
+                <section id="quota" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Quota Tracking</h3>
+                            <button class="btn btn-secondary" onclick="loadQuota()">Refresh</button>
+                        </div>
+                        <div class="card-body">
+                            <div id="quota-details" class="quota-details">
+                                <p class="placeholder-text">Loading quota details...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Logs Section -->
+                <section id="logs" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Request Logs</h3>
+                            <div class="header-actions">
+                                <button class="btn btn-secondary" onclick="exportLogs()">Export</button>
+                                <button class="btn btn-danger" onclick="clearLogs()">Clear</button>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div id="logs-container" class="logs-container">
+                                <p class="placeholder-text">Loading logs...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Translation Section -->
+                <section id="translation" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Format Translation</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="translation-info">
+                                <h4>Supported Formats</h4>
+                                <div class="formats-grid">
+                                    <div class="format-item">OpenAI</div>
+                                    <div class="format-item">Anthropic</div>
+                                    <div class="format-item">Gemini</div>
+                                    <div class="format-item">Cursor</div>
+                                    <div class="format-item">Kiro</div>
+                                    <div class="format-item">Vertex</div>
+                                    <div class="format-item">Antigravity</div>
+                                    <div class="format-item">Ollama</div>
+                                </div>
+                                <button class="btn btn-primary" onclick="showTranslationTest()">Test Translation</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- OAuth Section -->
+                <section id="oauth" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>OAuth Connections</h3>
+                            <button class="btn btn-primary" onclick="showOAuthAuthorize()">Authorize</button>
+                        </div>
+                        <div class="card-body">
+                            <div id="oauth-connections" class="oauth-connections">
+                                <p class="placeholder-text">No OAuth connections. Authorize a provider to get started.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Sync Section -->
+                <section id="sync" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Cloud Sync</h3>
+                        </div>
+                        <div class="card-body">
+                            <div id="sync-status" class="sync-status">
+                                <p class="placeholder-text">Loading sync status...</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Settings Section -->
+                <section id="settings" class="section">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Settings</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="settings-form">
+                                <div class="form-group">
+                                    <label for="setting-rtk">RTK Compression</label>
+                                    <select id="setting-rtk">
+                                        <option value="true">Enabled</option>
+                                        <option value="false">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setting-caveman">Caveman Compression</label>
+                                    <select id="setting-caveman">
+                                        <option value="true">Enabled</option>
+                                        <option value="false">Disabled</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setting-loglevel">Log Level</label>
+                                    <select id="setting-loglevel">
+                                        <option value="debug">Debug</option>
+                                        <option value="info">Info</option>
+                                        <option value="warn">Warning</option>
+                                        <option value="error">Error</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="setting-cloudsync">Cloud Sync</label>
+                                    <select id="setting-cloudsync">
+                                        <option value="true">Enabled</option>
+                                        <option value="false">Disabled</option>
+                                    </select>
+                                </div>
+                                <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+    
+    <!-- Modal -->
+    <div id="modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modal-title">Modal Title</h3>
+                <button class="modal-close" onclick="closeModal()">×</button>
+            </div>
+            <div class="modal-body" id="modal-body">
+                <!-- Modal content will be injected here -->
+            </div>
+        </div>
+    </div>
+    
+    <script src="dashboard-new.js"></script>
+</body>
+</html>
